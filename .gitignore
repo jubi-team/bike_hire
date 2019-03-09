@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -61,3 +62,27 @@ typings/
 
 # next.js build output
 .next
+=======
+# dependencies
+/node_modules
+node_modules/
+node_modules
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.idea/
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+>>>>>>> 6fcf861fee0dd0336945355770b95210b0789b8c
