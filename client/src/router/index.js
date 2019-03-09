@@ -11,12 +11,6 @@ export default new Router({
       name: 'BikesComponent',
       component: BikesComponent
     },
-    // {
-    //   path: '/bike-info',
-    //   props: true,
-    //   name: 'BikeDetailsComponent',
-    //   component: BikeDetailsComponent
-    // },
     {
       path: '/bike-info/:id',
       props: true,

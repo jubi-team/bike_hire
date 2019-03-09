@@ -6,9 +6,9 @@ const router = express.Router()
 
 async function loadMembersCollection(){
     const client = await mongodb.MongoClient.connect(mongoURL, {
-        useNewUrlParser: true
+        // useNewUrlParser: true
     })
-    return client.db('bikeBooking').collection('bikes')
+    return client.db('bikes_booking').collection('bikes')
 }
 
 
@@ -24,7 +24,6 @@ router.get('/', async(req, res)=>{
 
 //View Bike Info
 router.get('/:bikeID', async(req, res)=>{
-    console.log(req)
     try{
         const bikes = await loadMembersCollection();
         res.send(await bikes.find({_id: new mongodb.ObjectID(req.params.bikeID)}).toArray());

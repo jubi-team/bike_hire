@@ -4,7 +4,7 @@ const url = 'http://localhost:3000/apis/bikes/';
 
 class bikeService {
     //get members
-    static getMembers(){ 
+    static getBikes(){
         return new Promise(async (resolve, reject) => {
             try {
                 const res = await axios.get(url);

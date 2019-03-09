@@ -10,21 +10,14 @@
 </template>
 
 <script>
-    import bikeService from '../bikeService.js'
-    import {eventBus} from "../main";
 
     export default {
         name: 'BikeComponent',
         props: ['bike'],
         data() {
             return {
-                bicycle: this.bike,
-                memberInfo: null,
+                bicycle: this.bike
             }
-        },
-
-        methods: {
-            
         }
     } 
 </script>

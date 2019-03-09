@@ -16,13 +16,9 @@
 </template>
 
 <script>
-    import axios from 'axios'
-    import SingleBike  from './SingleBike.vue' 
+    import SingleBike  from './SingleBike.vue'
     import BikeDetailsComponent  from './BikeDetails.vue' 
     import bikeService from '../bikeService.js'
-
-    import {eventBus} from "../main";
-    import router from '../router'
 
     export default {
         name: 'BikesComponent',
@@ -40,7 +36,7 @@
         },
         async created(){
             try{
-                this.allBikes = await bikeService.getMembers();
+                this.allBikes = await bikeService.getBikes();
             }catch(err){
                 this.error= err.message;
             }
@@ -61,7 +57,7 @@
         margin-bottom: -10px;
     }
 
-    div.box-bike {
+    .box-bike {
         height: auto;
         flex-grow: 1;
         flex-shrink: 0;
@@ -69,7 +65,7 @@
         margin-bottom: 40px;
     }
 
-    div.box-bike:nth-child(even) {
+    .box-bike:nth-child(even) {
 	    margin: 0 10px 10px 10px;
-    } 
+    }
 </style>
