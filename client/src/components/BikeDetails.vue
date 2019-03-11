@@ -19,7 +19,7 @@
                         <p>Type: {{bikeDetails.type}}</p>
                     </div>
                     <div class="availability">
-                        <p>Availability: {{bikeDetails.availability}}</p>
+                        <p>Availability: {{bikeDetails.availability ? 'Available' : 'Unavailable'}}</p>
                     </div>
                     <div class="availability" v-if="bikeDetails.availability">
                         <button v-on:click="showForm = true" v-if="!showForm">Rent now</button>
