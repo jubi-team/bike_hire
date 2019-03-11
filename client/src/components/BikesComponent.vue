@@ -1,6 +1,8 @@
 <template>
     <div class="container">
         <h2 class="text-center mt-5 mb-5">Bikes</h2>
+        <input type="radio" name="show" value="all" v-model="show" v-on:click="getAllBikes" checked> Show All
+        <input type="radio" name="show" value="available" v-model="show" v-on:click="getAvailableBikes"> Only Available
         <div class="row bikes">
             <div class="box-bikes col-12 col-lg-12 ">
                 <SingleBike class="box-bike"
@@ -29,17 +31,34 @@
         data(){
             return {
                 allBikes: [],
+                show: 'all'
             }
         },
         mounted() {
-
+            console.log(this.show)
+        },
+        methods: {
+            async getAllBikes() {
+                console.log("getall")
+                try{
+                    this.allBikes = await bikeService.getAllBikes();
+                }catch(err){
+                    this.error= err.message;
+                }
+            },
+            async getAvailableBikes() {
+                try{
+                    this.allBikes = await bikeService.getAvailableBikes();
+                }catch(err){
+                    this.error= err.message;
+                }
+            },
+            change() {
+                console.log("change", this.show)
+            }
         },
         async created(){
-            try{
-                this.allBikes = await bikeService.getBikes();
-            }catch(err){
-                this.error= err.message;
-            }
+            this.getAllBikes()
         }
     }
 </script>

@@ -3,11 +3,28 @@ import axios from 'axios';
 const url = 'http://localhost:3000/apis/bikes/';
 
 class bikeService {
-    //get members
-    static getBikes(){
+    //get bikes
+    static getAllBikes(){
         return new Promise(async (resolve, reject) => {
             try {
-                const res = await axios.get(url);
+                const res = await axios.get(url + '/all');
+                const data = res.data;
+                resolve(
+                    data.map(bike => ({
+                        ...bike,
+                        createdAt: new Date(bike.createdAt)
+                    }))
+                );
+            }catch(err){
+                reject(err);
+            }
+        })
+    }
+
+    static getAvailableBikes(){
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await axios.get(url + '/available');
                 const data = res.data;
                 resolve(
                     data.map(bike => ({

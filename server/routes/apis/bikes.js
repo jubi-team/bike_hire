@@ -13,7 +13,7 @@ async function loadBikesCollection(){
 
 
 //Get All Bikes
-router.get('/', async(req, res)=>{
+router.get('/all', async(req, res)=>{
   try{
       const bikes = await loadBikesCollection();
       res.send(await bikes.find({}).toArray())
@@ -21,6 +21,16 @@ router.get('/', async(req, res)=>{
       console.log(error)
   } 
 })
+
+//Get Available Bikes
+router.get('/available', async(req, res)=>{
+    try{
+        const bikes = await loadBikesCollection();
+        res.send(await bikes.find({availability: true}).toArray())
+    }catch(error) {
+        console.log(error)
+    } 
+  })
 
 //View Bike Info
 router.get('/:bikeID', async(req, res)=>{
