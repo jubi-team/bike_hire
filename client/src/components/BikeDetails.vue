@@ -15,8 +15,27 @@
                     <div class="bike-description">
                         <p>{{bikeDetails.description}}</p>
                     </div>
+                    <div class="bike-type">
+                        <p>Type: {{bikeDetails.type}}</p>
+                    </div>
                     <div class="availability">
                         <p>Availability: {{bikeDetails.availability}}</p>
+                    </div>
+                    <div class="availability" v-if="bikeDetails.availability">
+                        <button v-on:click="showForm = true" v-if="!showForm">Rent now</button>
+                        <form v-if="showForm" id="booking-form">
+                            <div>
+                                <input v-model="form.firstName" name="firstName" type="text" placeholder="First name">
+                            </div>
+                            <div>
+                                <input v-model="form.lastName" name="lastName" type="text" placeholder="Last name">
+                            </div>
+                            <div>
+                                <input v-model="form.phone" name="phone" type="text" placeholder="Phone">
+                            </div>
+                            <button type="button" v-on:click="changeStatus">Save</button>
+                            <button type="button" v-on:click="showForm = false">Cancel</button>
+                        </form>
                     </div>
                 </div>    
             </div>
@@ -32,14 +51,31 @@
         data(){
             return {
                 bikeDetails: '',
-                bikeID: this.$route.params.id
+                bikeID: this.$route.params.id,
+                showForm: false,
+                form: {
+                    firstName: '',
+                    lastName: '',
+                    phone: ''
+                }
+                
             }
         },
-        async created(){
+        async created() {
             try{
                 this.bikeDetails = await bikeService.viewBikeDetails(this.bikeID);
             }catch(err){
                 this.error= err.message;
+            }
+        },
+        methods: {
+            async changeStatus() {
+                try{
+                    await bikeService.changeAvailabilityStatus(this.bikeID,this.form);
+                    this.bikeDetails.availability = false
+                }catch(err){
+                    this.error= err.message;
+                }
             }
         }
     }

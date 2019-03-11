@@ -70,6 +70,24 @@ class bikeService {
             }
         })  
     }
+
+
+    static changeAvailabilityStatus(bikeID, form){
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await axios.post(`${url}bike-info`, {
+                    bikeID: bikeID,
+                    form: form
+                });
+                const data = res.data;
+                resolve(
+                    data
+                );
+            }catch(err){
+                reject(err);
+            }
+        })  
+    }
 }
 
 export default bikeService;
