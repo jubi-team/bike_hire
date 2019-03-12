@@ -37,7 +37,17 @@
                             <button type="button" v-on:click="showForm = false">Cancel</button>
                         </form>
                     </div>
-                </div>    
+                </div>
+            </div>
+            <div v-if="this.bikeDetails.booking_history && this.bikeDetails.booking_history.length > 0">
+                <h2>History</h2>
+                <div class="grid">
+                    <div class="t-head">First Name</div>
+                    <div class="t-head">Last Name</div>
+                    <div class="t-head">Phone</div>
+                    <div class="t-head">Date</div>
+                </div>
+                <History v-bind:key="index" v-bind:index="index" v-bind:history="history" v-bind:item="history" v-for="(history, index) in bikeDetails.booking_history" />
             </div>
         </div>
     </div> 
@@ -45,9 +55,13 @@
 
 <script>
     import bikeService from '../bikeService.js'
+    import History from './History.vue'
 
     export default {
         name: 'BikeDetails',
+        components: {
+            History
+        },
         data(){
             return {
                 bikeDetails: '',
@@ -64,6 +78,7 @@
         async created() {
             try{
                 this.bikeDetails = await bikeService.viewBikeDetails(this.bikeID);
+                console.log(this.bikeDetails.booking_history)
             }catch(err){
                 this.error= err.message;
             }
@@ -94,6 +109,15 @@
         padding-top:30px;
         max-width: 530px;
         width: 100%;
+    }
+
+    .t-head {
+        font-weight: 600;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 </style>
 
