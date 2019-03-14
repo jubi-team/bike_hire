@@ -56,14 +56,7 @@ router.post('/bike-info/booking', async(req, res)=>{
     try{
         const bookings = await loadBookingsCollection();
         const bikes = await loadBikesCollection();
-
         const date = new Date(Date.now()).toISOString()
-        // res.send(await bookings.insertOne({firstName: req.body.form.firstName, lastName: req.body.form.lastName, phone: req.body.form.phone, date: new Date(Date.now()).toISOString()}), function(err, result){
-        //     console.log('err',err)
-        //     console.log('result',result)
-        // })
-
-        // let testID 
         
         const test1 = await bookings.insertOne({
             firstName: req.body.form.firstName,
@@ -86,30 +79,12 @@ router.post('/bike-info/booking', async(req, res)=>{
             }}}
         )
 
-        // // res.send(await bikes.updateOne({_id: new mongodb.ObjectID(req.body.bikeID)},{$push:{booking_history: {firstName: req.body.form.firstName, lastName: req.body.form.lastName, phone: req.body.form.phone, date: new Date(Date.now()).toISOString()}}}))
-
-        // const test2 = await bikes.updateOne({_id: new mongodb.ObjectID(req.body.bikeID)},
-        //     {
-        //     $push: {booking_history: {
-        //         id: testID,
-        //         firstName: req.body.form.firstName,
-        //         lastName: req.body.form.lastName,
-        //         phone: req.body.form.phone,
-        //         date: date
-        //     }}}
-        // )
-
         const test3 = await bikes.updateOne({_id: new mongodb.ObjectID(req.body.bikeID)},
             {$set:{availability: false}}
         )
 
-        // // res.send(await bikes.updateOne({_id: new mongodb.ObjectID(req.body.bikeID)},{$set:{availability: false}}))
-
         Promise.all([test1, test3, test4]).then(function(){
             res.send({ success: true });
-            // Promise.all([test2, test3]).then(function(){
-            //     res.send({ success: true });
-            // })
         })
     }catch(error) {
         res.send(error)
@@ -130,49 +105,7 @@ router.post('/bike-info/return', async(req, res)=>{
     }  
 })
 
-
-
-
-// BOOKINGS
-// router.get('/bookings', async(req, res)=>{
-//     console.log('req')
-//     console.log(req)
-//     res.send('REQ')
-//     // try{
-//     //     const bookings = await loadBookingsCollection();
-//     //     res.send(await bookings.find({}).toArray())
-//     // }catch(error) {
-//     //     console.log(error)
-//     // } 
-//   })
-
-// router.get('/allt', async(req, res)=>{
-//     try{
-//         const bookings = await loadBookingsCollection();
-//         res.send(await bookings.find({}).toArray())
-//     }catch(error) {
-//         console.log(error)
-//     } 
-//   })
-
-
-
-
-
-
-
-// router.get('/bookings', async(req, res)=>{
-//     res.send('HÆÆÆÆÆJJI')
-//     // try{
-//     //     const bikes = await loadBikesCollection();
-//     //     res.send(await bikes.find({}).toArray())
-//     // }catch(error) {
-//     //     console.log(error)
-//     // } 
-//   })
-
-
-
+// GET BOOKINGS
 router.get('/bookings', async(req, res)=>{
     try{
         const bikes = await loadBikesCollection();
