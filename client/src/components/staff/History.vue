@@ -4,6 +4,7 @@
         <div>{{history.lastName}}</div>
         <div>{{history.phone}}</div>
         <div>{{history.date}}</div>
+        <div>{{history.id}}</div>
     </div>
 </template>
 

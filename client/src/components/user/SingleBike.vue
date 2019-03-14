@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link v-bind:to="{ name: 'BikeDetailsComponent', params: { id: bicycle._id }}">
+        <router-link v-bind:to="{ name: 'UserBikeDetailsComponent', params: { id: bicycle._id }}">
             <div class="box-bike-inner">
                 <img :src="bicycle.image" alt="bike image" v-bind:class="{unavailable: !this.bicycle.availability}">
                 <h2>{{bicycle.name}}</h2>

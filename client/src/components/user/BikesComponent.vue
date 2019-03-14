@@ -1,8 +1,8 @@
 <template>
     <div class="container">
         <h2 class="text-center mt-5 mb-5">Bikes</h2>
-        <input type="radio" name="show" value="all" v-model="show" v-on:click="getAllBikes" checked> Show All
-        <input type="radio" name="show" value="available" v-model="show" v-on:click="getAvailableBikes"> Only Available
+        <!-- <input type="radio" name="show" value="all" v-model="show" v-on:click="getAllBikes" checked> Show All
+        <input type="radio" name="show" value="available" v-model="show" v-on:click="getAvailableBikes"> Only Available -->
         <div class="row bikes">
             <div class="box-bikes col-12 col-lg-12 ">
                 <SingleBike class="box-bike"
@@ -20,7 +20,7 @@
 <script>
     import SingleBike  from './SingleBike.vue'
     import BikeDetailsComponent  from './BikeDetails.vue' 
-    import bikeService from '../bikeService.js'
+    import bikeService from '../../bikeService.js'
 
     export default {
         name: 'BikesComponent',
@@ -38,14 +38,14 @@
             console.log(this.show)
         },
         methods: {
-            async getAllBikes() {
-                console.log("getall")
-                try{
-                    this.allBikes = await bikeService.getAllBikes();
-                }catch(err){
-                    this.error= err.message;
-                }
-            },
+            // async getAllBikes() {
+            //     console.log("getall")
+            //     try{
+            //         this.allBikes = await bikeService.getAllBikes();
+            //     }catch(err){
+            //         this.error= err.message;
+            //     }
+            // },
             async getAvailableBikes() {
                 try{
                     this.allBikes = await bikeService.getAvailableBikes();
@@ -58,7 +58,7 @@
             }
         },
         async created(){
-            this.getAllBikes()
+            this.getAvailableBikes()
         }
     }
 </script>

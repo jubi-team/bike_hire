@@ -18,10 +18,10 @@
                     <div class="bike-type">
                         <p>Type: {{bikeDetails.type}}</p>
                     </div>
-                    <div class="availability">
+                    <div class="">
                         <p>Availability: {{bikeDetails.availability ? 'Available' : 'Unavailable'}}</p>
                     </div>
-                    <div class="availability" v-if="bikeDetails.availability">
+                    <div class="" v-if="bikeDetails.availability">
                         <button v-on:click="showForm = true" v-if="!showForm">Rent now</button>
                         <form v-if="showForm" id="booking-form">
                             <div>
@@ -33,28 +33,39 @@
                             <div>
                                 <input v-model="form.phone" name="phone" type="text" placeholder="Phone">
                             </div>
-                            <button type="button" v-on:click="changeStatus">Save</button>
+                            <button type="button" v-on:click="bookBike">Save</button>
                             <button type="button" v-on:click="showForm = false">Cancel</button>
                         </form>
                     </div>
+                    <!-- <div class="availability" v-if="!bikeDetails.availability">
+                        <button type="button" v-on:click="returnBike">Return</button>
+                    </div> -->
                 </div>
             </div>
-            <div v-if="this.bikeDetails.booking_history && this.bikeDetails.booking_history.length > 0">
+            <!-- <div v-if="this.bikeDetails.booking_history && this.bikeDetails.booking_history.length > 0">
                 <h2>History</h2>
                 <div class="grid">
                     <div class="t-head">First Name</div>
                     <div class="t-head">Last Name</div>
                     <div class="t-head">Phone</div>
-                    <div class="t-head">Date</div>
+                    <div class="t-head">Date Booked</div>
+                    <div class="t-head">Date Returned</div>
                 </div>
                 <History v-bind:key="index" v-bind:index="index" v-bind:history="history" v-bind:item="history" v-for="(history, index) in bikeDetails.booking_history" />
-            </div>
+            </div> -->
+            <!-- <div v-if="this.bikeDetails.customer">
+                <h2>Rented by</h2>
+                <div>{{bikeDetails.customer.firstName}}</div>
+                <div>{{bikeDetails.customer.lastName}}</div>
+                <div>{{bikeDetails.customer.phone}}</div>
+                <div>{{bikeDetails.customer.date}}</div>
+            </div> -->
         </div>
     </div> 
 </template>
 
 <script>
-    import bikeService from '../bikeService.js'
+    import bikeService from '../../bikeService.js'
     import History from './History.vue'
 
     export default {
@@ -84,9 +95,17 @@
             }
         },
         methods: {
-            async changeStatus() {
+            async bookBike() {
                 try{
-                    await bikeService.changeAvailabilityStatus(this.bikeID,this.form);
+                    console.log(await bikeService.bookBike(this.bikeID,this.form))
+                    this.bikeDetails.availability = false
+                }catch(err){
+                    this.error= err.message;
+                }
+            },
+            async returnBike() {
+                try{
+                    await bikeService.returnBike(this.bikeID);
                     this.bikeDetails.availability = false
                 }catch(err){
                     this.error= err.message;
@@ -117,7 +136,7 @@
 
     .grid {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     }
 </style>
 

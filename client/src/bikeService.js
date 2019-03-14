@@ -89,10 +89,10 @@ class bikeService {
     }
 
 
-    static changeAvailabilityStatus(bikeID, form){
+    static bookBike(bikeID, form){
         return new Promise(async (resolve, reject) => {
             try {
-                const res = await axios.post(`${url}bike-info`, {
+                const res = await axios.post(`${url}bike-info/booking`, {
                     bikeID: bikeID,
                     form: form
                 });
@@ -104,6 +104,48 @@ class bikeService {
                 reject(err);
             }
         })  
+    }
+
+    static returnBike(bikeID){
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await axios.post(`${url}bike-info/return`, {
+                    bikeID: bikeID,
+                });
+                const data = res.data;
+                resolve(
+                    data
+                );
+            }catch(err){
+                reject(err);
+            }
+        })  
+    }
+
+
+
+
+    static getBookings(){
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await axios.get(`${url}bookings`);
+                const data = res.data;
+                // resolve(
+                //     data.map(booking => ({
+                //         ...booking,
+                //         // createdAt: new Date(booking.createdAt)
+                //     }))
+                // );
+                // res.send('ÆÆÆÆ')
+                // const data = 'drasl'
+                resolve(
+                    data
+                )
+            }catch(err){
+                // res.send(err)
+                reject(err);
+            }
+        })
     }
 }
 

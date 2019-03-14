@@ -1,22 +1,41 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import BikesComponent from '@/components/BikesComponent'
-import BikeDetailsComponent from '@/components/BikeDetails'
+import StaffBikesComponent from '@/components/staff/BikesComponent'
+import StaffBikeDetailsComponent from '@/components/staff/BikeDetails'
+import StaffBookingsComponent from '@/components/staff/BookingsComponent'
+import UserBikesComponent from '@/components/user/BikesComponent'
+import UserBikeDetailsComponent from '@/components/user/BikeDetails'
 
 Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'BikesComponent',
-      component: BikesComponent
+      path: '/staff',
+      name: 'StaffBikesComponent',
+      component: StaffBikesComponent
     },
     {
-      path: '/bike-info/:id',
+      path: '/staff/bike-info/:id',
       props: true,
-      name: 'BikeDetailsComponent',
-      component: BikeDetailsComponent
-    }
+      name: 'StaffBikeDetailsComponent',
+      component: StaffBikeDetailsComponent
+    },
+    {
+      path: '/staff/bookings',
+      name: 'StaffBookingsComponent',
+      component: StaffBookingsComponent
+    },
+    {
+      path: '/user',
+      name: 'UserBikesComponent',
+      component: UserBikesComponent
+    },
+    {
+      path: '/user/bike-info/:id',
+      props: true,
+      name: 'UserBikeDetailsComponent',
+      component: UserBikeDetailsComponent
+    },
   ],
   mode: 'history'
 })
