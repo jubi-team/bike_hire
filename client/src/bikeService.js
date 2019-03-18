@@ -3,6 +3,9 @@ import axios from 'axios';
 const url = 'http://localhost:3000/apis/bikes/';
 
 class bikeService {
+    blaTest(){
+        return "shit"
+    }
     //get members
     static getBikes(){
         return new Promise(async (resolve, reject) => {
