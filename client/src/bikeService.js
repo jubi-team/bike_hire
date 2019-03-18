@@ -4,6 +4,14 @@ const url = 'http://localhost:3000/apis/bikes/';
 
 class bikeService {
     //get bikes
+
+     static bikeTest(){
+        return 'daa'
+    }
+
+    static name(){
+        return 'me';
+    }
     static getAllBikes(){
         return new Promise(async (resolve, reject) => {
             try {
