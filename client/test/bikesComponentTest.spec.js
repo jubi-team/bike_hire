@@ -15,7 +15,7 @@ import bikeService from '../src/BikeService.js'
 //     it('fsfs',function() {
 //         // const h2= wrapper.find(BikeService)
 //         expect(BikeService.bikeTest).toBe('daa')  
-//     })
+//     })kk
 // })
 
 describe("Number", function() {
