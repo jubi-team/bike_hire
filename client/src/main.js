@@ -3,14 +3,22 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-// import { store } from './store'
+import 'vuetify/dist/vuetify.min.css'
+import Vuetify from 'vuetify'
+import VTooltip from 'v-tooltip'
 
+Vue.use(VTooltip)
+
+Vue.use(Vuetify)
 Vue.config.productionTip = false
 
 export const eventBus = new Vue();
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  data: () => ({
+    dialog: false
+  }),
   router,
   // store,
   components: { App },
