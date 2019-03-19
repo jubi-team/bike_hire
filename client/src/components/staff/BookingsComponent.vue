@@ -42,6 +42,8 @@
                 }catch(err){
                     this.error= err.message;
                     console.log(this.error)
+                }finally{
+                    console.log(this.bookings)
                 }
             }, 
         },

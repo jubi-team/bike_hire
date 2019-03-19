@@ -179,7 +179,8 @@
         },
         async created(){
             this.getAllBikes()
-        }
+        },
+        
     }
 </script>
 

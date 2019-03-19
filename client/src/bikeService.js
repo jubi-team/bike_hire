@@ -129,10 +129,47 @@ class bikeService {
         })  
     }
 
-
     //Delete Bike
     static deleteBike(bikeID){
         return axios.delete(`${url}${bikeID}`)  
+    }
+
+
+
+
+    static getUsers(){
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await axios.get(`${url}users`);
+                const data = res.data;
+                resolve(
+                    data.map(user => ({
+                        ...user,
+                    }))
+                );
+            }catch(err){
+                reject(err);
+            }
+        })
+    }
+
+    static login(name, password){
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await axios.post(`${url}login`, {
+                    name: name,
+                    password: password
+                });
+                const data = res.data;
+                resolve(
+                    data.map(user => ({
+                        ...user,
+                    }))
+                );
+            }catch(err){
+                reject(err);
+            }
+        })
     }
 }
 

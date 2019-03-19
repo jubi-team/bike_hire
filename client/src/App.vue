@@ -7,11 +7,17 @@
         </router-link>
         <div class="navbar-right">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
+            <li class="nav-item active" v-if="user">
               <router-link to="/staff" class="nav-link bikes">Bikes</router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="user">
               <router-link to="/staff/bookings" class="nav-link">Bookings</router-link>
+            </li>
+            <li class="nav-item" v-if="user">
+              <a v-on:click="logOut">
+                <!-- <button v-on:click="signOut">Sign out</button> -->
+                Log Out
+              </a>
             </li>
           </ul>
         </div>
@@ -27,7 +33,30 @@
   import Nav  from './components/staff/Nav.vue'
 
 export default {
-  name: 'App'
+  name: 'App',
+  data(){
+    return {
+      user: null
+    }
+  },
+  methods: {
+    authenticate() {
+      this.user = this.$store.getters.getUser
+      if(!this.user) {
+        this.$router.push({ path: '/staff/login'})
+      }
+    },
+    logOut() {
+      this.$store.commit('testUser', null)
+      this.$router.push({ path: '/staff/login' })
+    }
+  },
+  created() {
+    this.authenticate()
+  },
+  beforeUpdate() {
+    this.authenticate()
+  },
 }
 </script>
 
@@ -74,10 +103,18 @@ export default {
             div.navbar-right {
               ul {
                 li.nav-item {
+                  display: flex;
+                  align-items: center;
+
+                  &:not(:last-child) {
+                    margin-right: 20px;
+                  }
+
                   a {
                     color: #fff;
                     font-size: 16px;
                     text-transform: uppercase;
+                    padding: 7px;
 
                     &:after {
                       content: '';
@@ -96,9 +133,7 @@ export default {
                 }
               }
             }
-           
         }
-      
       }
     }
 
@@ -108,10 +143,6 @@ export default {
   // li.nav-item a:hover:after {
   //   width: 100%;
   // }
-
-  li a.bikes {
-    padding-right: 30px !important;
-  }
 
   .router-anim{
     animation: coming 1s;
