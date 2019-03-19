@@ -1,8 +1,6 @@
 <template>
     <div class="bikes-view-ctn container">
-        <div id="app">
-    
-</div>
+
         <div class="container">
             <div class="update-bike-details">
               
@@ -10,10 +8,10 @@
                     <v-dialog v-model="dialog" data-app persistent max-width="600px">
                         <template v-slot:activator="{ on }">
                             <v-speed-dial v-model="fab" :top="top" :bottom="bottom" :right="right" :left="left" :direction="direction" :hover="hover" :transition="transition" relative="">
-      <v-btn slot="activator" class="blue darken-2" dark="" fab="" hover="" v-on="on" v-model="fab" v-tooltip:left="{ html: 'Delete, open or add a new dashboard layout or module' }">
-        <v-icon>+</v-icon>
-      </v-btn>
-    </v-speed-dial>
+                                <v-btn slot="activator" class="blue darken-2" dark="" fab="" hover="" v-on="on" v-model="fab" v-tooltip:left="{ html: 'Delete, open or add a new dashboard layout or module' }">
+                                    <v-icon>+</v-icon>
+                                </v-btn>
+                            </v-speed-dial>
                         </template>
                         <v-card>
                             <v-card-text>
@@ -97,7 +95,6 @@
 <script>
     import axios from 'axios';
     import SingleBike  from './SingleBike.vue'
-    import Nav  from './Nav.vue'
     import BikeDetailsComponent  from './BikeDetails.vue' 
     import bikeService from '../../bikeService.js'
 
@@ -106,7 +103,6 @@
         components: {
             SingleBike,
             BikeDetailsComponent,
-            Nav
         },
         data(){
             return {

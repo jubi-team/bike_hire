@@ -11,7 +11,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/staff',
+      path: '/staff/bikes',
       name: 'StaffBikesComponent',
       component: StaffBikesComponent
     },
