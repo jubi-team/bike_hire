@@ -126,7 +126,9 @@ router.post('/bike-info/booking', async(req, res)=>{
             firstName: req.body.form.firstName,
             lastName: req.body.form.lastName,
             phone: req.body.form.phone,
-            date: date}, 
+            date: date,
+            user: req.body.user
+        }, 
             function(err, result){
                 console.log('err',err)
                 console.log('result',result)

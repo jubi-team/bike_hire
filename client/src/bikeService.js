@@ -61,12 +61,13 @@ class bikeService {
     }
 
 
-    static bookBike(bikeID, form){
+    static bookBike(bikeID, form, user){
         return new Promise(async (resolve, reject) => {
             try {
                 const res = await axios.post(`${url}bike-info/booking`, {
                     bikeID: bikeID,
-                    form: form
+                    form: form,
+                    user: user
                 });
                 const data = res.data;
                 resolve(
