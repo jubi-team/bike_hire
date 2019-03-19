@@ -2,16 +2,22 @@
   <div id="app">
     <nav class="navbar navbar-expand bg-transparent">
       <div class="container nav-container">
-        <router-link to="/staff" class="navbar-brand">
+        <router-link to="/staff/bikes" class="navbar-brand">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaPVcqc3HeVZnrrgZdIVqhePSFV3RH3-Jn5LNm-zftmN1r2E74" class="logo-image" alt="logo">
         </router-link>
         <div class="navbar-right">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <router-link to="/staff" class="nav-link bikes">Bikes</router-link>
+            <li class="nav-item" v-if="user">
+              <router-link to="/staff/bikes" class="nav-link">Bikes</router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="user">
               <router-link to="/staff/bookings" class="nav-link">Bookings</router-link>
+            </li>
+            <li class="nav-item" v-if="user">
+              <a v-on:click="logOut">
+                <!-- <button v-on:click="signOut">Sign out</button> -->
+                Log Out
+              </a>
             </li>
           </ul>
         </div>
@@ -27,7 +33,30 @@
   import Nav  from './components/staff/Nav.vue'
 
 export default {
-  name: 'App'
+  name: 'App',
+  data(){
+    return {
+      user: null
+    }
+  },
+  methods: {
+    authenticate() {
+      this.user = this.$store.getters.getUser
+      if(!this.user) {
+        this.$router.push({ path: '/staff/login'})
+      }
+    },
+    logOut() {
+      this.$store.commit('testUser', null)
+      this.$router.push({ path: '/staff/login' })
+    }
+  },
+  created() {
+    this.authenticate()
+  },
+  beforeUpdate() {
+    this.authenticate()
+  },
 }
 </script>
 
@@ -43,9 +72,13 @@ export default {
       -moz-osx-font-smoothing: grayscale;
       box-sizing: border-box;
       color: #2c3e50;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
 
       nav {
         box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+        position: relative;
 
         &.bg-transparent {
           background-color:#1B8D5F !important;
@@ -74,10 +107,18 @@ export default {
             div.navbar-right {
               ul {
                 li.nav-item {
+                  display: flex;
+                  align-items: center;
+
+                  &:not(:last-child) {
+                    margin-right: 20px;
+                  }
+
                   a {
                     color: #fff;
                     font-size: 16px;
                     text-transform: uppercase;
+                    padding: 7px;
 
                     &:after {
                       content: '';
@@ -96,9 +137,7 @@ export default {
                 }
               }
             }
-           
         }
-      
       }
     }
 
@@ -108,10 +147,6 @@ export default {
   // li.nav-item a:hover:after {
   //   width: 100%;
   // }
-
-  li a.bikes {
-    padding-right: 30px !important;
-  }
 
   .router-anim{
     animation: coming 1s;

@@ -5,12 +5,13 @@ import StaffBikeDetailsComponent from '@/components/staff/BikeDetails'
 import StaffBookingsComponent from '@/components/staff/BookingsComponent'
 import UserBikesComponent from '@/components/user/BikesComponent'
 import UserBikeDetailsComponent from '@/components/user/BikeDetails'
+import LoginComponent from '@/components/staff/LoginComponent'
 
 Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/staff',
+      path: '/staff/bikes',
       name: 'StaffBikesComponent',
       component: StaffBikesComponent
     },
@@ -24,6 +25,11 @@ export default new Router({
       path: '/staff/bookings',
       name: 'StaffBookingsComponent',
       component: StaffBookingsComponent
+    },
+    {
+      path: '/staff/login',
+      name: 'LoginComponent',
+      component: LoginComponent
     },
     {
       path: '/user',

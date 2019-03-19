@@ -161,7 +161,7 @@
         methods: {
             async bookBike() {
                 try{
-                    // console.log(await bikeService.bookBike(this.bikeID,this.form))
+                    console.log(await bikeService.bookBike(this.bikeID,this.form, this.$store.getters.getUser))
                     this.bikeDetails.availability = false
                 }catch(err){
                     this.error= err.message;

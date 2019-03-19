@@ -36,6 +36,11 @@ async function loadBookingsCollection(){
     return client.db('bikes_booking').collection('bookings')
 }
 
+async function loadUsersCollection(){
+    const client = await mongodb.MongoClient.connect(mongoURL)
+    return client.db('bikes_booking').collection('users')
+}
+
 //add bike + image to database
 router.post("/upload", uploading.single('image'), async ( req, res )=> {
     let imageUrl = req.file.filename;
@@ -121,7 +126,9 @@ router.post('/bike-info/booking', async(req, res)=>{
             firstName: req.body.form.firstName,
             lastName: req.body.form.lastName,
             phone: req.body.form.phone,
-            date: date}, 
+            date: date,
+            user: req.body.user
+        }, 
             function(err, result){
                 console.log('err',err)
                 console.log('result',result)
@@ -172,6 +179,35 @@ router.get('/bookings', async(req, res)=>{
     }catch(error) {
         console.log(error)
     } 
+})
+
+//View Bike Info
+router.get('/users', async(req, res)=>{
+    try{
+        const users = await loadUsersCollection();
+        res.send(await users.find({name: req.body.name, password: req.body.password}).toArray())
+        // res.send(await users.find({_id: new mongodb.ObjectID(req.body.bikeID)},{$set:{name: req.body.updateBikeInfo.name, description: req.body.updateBikeInfo.description, availability: req.body.updateBikeInfo.availability, price: req.body.updateBikeInfo.price, type: req.body.updateBikeInfo.type }}))
+    }catch(error) {
+        res.send(error)
+    }  
+
+    // try{
+    //     const bikes = await loadBikesCollection();
+    //     res.send(await bikes.find({_id: new mongodb.ObjectID(req.params.bikeID)}).toArray());
+    // }catch(error) {
+    //     console.log(error)
+    // }  
+})
+
+
+router.post('/login', async(req, res)=>{
+    try{
+        const users = await loadUsersCollection();
+        res.send(await users.find({name: req.body.name, password: req.body.password}).toArray())
+        // res.send(await users.find({_id: new mongodb.ObjectID(req.body.bikeID)},{$set:{name: req.body.updateBikeInfo.name, description: req.body.updateBikeInfo.description, availability: req.body.updateBikeInfo.availability, price: req.body.updateBikeInfo.price, type: req.body.updateBikeInfo.type }}))
+    }catch(error) {
+        res.send(error)
+    }  
 })
 
 
